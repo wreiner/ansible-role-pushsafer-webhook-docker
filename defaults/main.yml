@@ -1,0 +1,9 @@
+---
+pushsafer_webhook_docker__image: "wreiner/alertmanager-webhook-pushsafer"
+pushsafer_webhook_docker__pushsafer_webhook_version: "v0.2"
+
+pushsafer_webhook_docker__data_dir: "/var/lib/docker/volumes/pushsafer_webhook"
+pushsafer_webhook_docker__config_dir: "{{ pushsafer_webhook_docker__data_dir }}/etc"
+
+pushsafer_webhook_docker__system_user: "nobody"
+pushsafer_webhook_docker__system_group: "nogroup"

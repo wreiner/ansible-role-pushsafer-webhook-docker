@@ -1,0 +1,7 @@
+---
+- name: "Restart pushsafer_webhook"
+  systemd:
+    state: restarted
+    name: pushsafer-webhook
+    daemon_reload: yes
+    enabled: yes

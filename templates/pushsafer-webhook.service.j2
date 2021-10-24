@@ -1,0 +1,23 @@
+[Unit]
+Description=Pushsafer Webhook for Alertmanager
+Requires=docker.service
+
+[Service]
+Restart=always
+RestartSec=3
+
+ExecStartPre=-/usr/bin/docker kill pushsafer_webhook
+ExecStartPre=-/usr/bin/docker rm pushsafer_webhook
+
+ExecStart=/usr/bin/docker run \
+        -p {{ pushsafer_webhook_docker__listen_address }}:39196:9196 \
+        --name pushsafer_webhook \
+        -v {{ pushsafer_webhook_docker__config_dir }}/pushsafer_alertmanager_webhook.conf:/etc/pushsafer_alertmanager_webhook.conf \
+         {{ pushsafer_webhook_docker__image }}:{{ pushsafer_webhook_docker__pushsafer_webhook_version }}
+
+ExecStop=/usr/bin/docker stop -t 120 pushsafer_webhook
+
+ExecReload=/usr/bin/docker exec pushsafer_webhook /bin/sh -c "kill -HUP 1"
+
+[Install]
+WantedBy=multi-user.target

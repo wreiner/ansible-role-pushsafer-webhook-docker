@@ -1,0 +1,11 @@
+---
+- name: "Create additional pushsafer-webhook directories"
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ pushsafer_webhook_docker__system_user }}"
+    group: "{{ pushsafer_webhook_docker__system_group }}"
+    mode: 0750
+  with_items:
+    - "{{ pushsafer_webhook_docker__data_dir }}/etc"
+    - "{{ pushsafer_webhook_docker__data_dir }}/data"
